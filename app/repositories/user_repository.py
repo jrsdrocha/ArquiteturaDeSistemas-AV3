@@ -25,6 +25,16 @@ class UserRepository:
         self.db.refresh(user)
         return user
 
+    def create_pending(
+        self,
+        username: str,
+        password: str,
+        status: str = "ACTIVE",
+    ) -> User:
+        user = User(username=username, password=password, status=status)
+        self.db.add(user)
+        return user
+
     def update_status(self, user_id: int, status: str) -> Optional[User]:
         user = self.get_by_id(user_id)
         if user is None:
